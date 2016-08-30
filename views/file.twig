@@ -1,0 +1,29 @@
+{% extends 'base_template.twig' %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+            </div>
+            <div class="col-lg-6">
+                {% include '/parts/file_download.twig' %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-4">
+            </div>
+            <div class="col-lg-6">
+                {% include '/parts/file_comments.twig' %}
+            </div>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="/js/buffer_copy.js"></script>
+{% endblock %}

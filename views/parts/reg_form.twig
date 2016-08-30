@@ -1,0 +1,46 @@
+    <form action="{{ path_for('user.reg') }}" method="post" enctype="multipart/form-data" autocomplete="off" role="form">
+        <div class="form-header">
+            <h1>Зарегистрируйтес на сайте</h1>
+            <p>и начните загружать файлы прямо сейчас!</p>
+        </div> 
+        <hr>
+
+        <div class="form-body">
+
+            <div class="form-group{{ errors['Email'] ? ' has-error' : '' }}">
+                <label for="email" class="control-label">Email</label>
+                <div class="{{ errors['Email'] ? ' has-error has-feedback'}}">
+                <input type="email" name="email" id="email" value="{{ old['email'] }}" maxlength="100" class="form-control" placeholder="{{ errors['Email'] ? errors['Email'][0] : 'john@doe.com'}}" autofocus title="введите ваш email" />
+            </div>
+            </div>
+            
+            
+            <div class="form-group{{ errors['name'] ? ' has-error' : '' }}">
+                <label for="name" class="control-label">Имя:</label>
+                <div class="{{ errors['name'] ? ' has-error has-feedback'}}">
+                <input type="text" name="name" id="name" value="{{ old['name'] }}" class="form-control" maxlength="100" placeholder="{{ errors['name'] ? errors['name'][0] : 'john'}}" title="введите ваше имя"  />
+            </div>
+            </div>
+            
+            <div class="form-group{{ errors['password'] ? ' has-error' : '' }}">
+                <label for="password" class="control-label">Пароль:</label>
+                <div class="{{ errors['password'] ? ' has-error has-feedback'}}">
+                <input type="password" name="password" id="password" value="{{ old['password'] }}" class="form-control" maxlength="30" title="введите ваш пароль" placeholder="{{ errors['password'] ? errors['password'][0] : ''}}"  />
+            </div>
+            </div>
+
+            
+            <div class="form-group{{ errors['image'] ? ' has-error' : '' }}">
+                <label for="image" class="control-label">Фотография:</label>
+                <input type="file" name="image" id="image" class="form-control" title="ваша фотография" />
+                {% if errors['image'] %}
+                    <span class="reg-help">{{ errors['image'][0] }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Зарегистрироваться" class="btn btn-primary" />
+            </div>
+        </div>
+        {{ csrf.field | raw }}
+    </form>

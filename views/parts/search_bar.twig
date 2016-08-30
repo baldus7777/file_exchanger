@@ -1,0 +1,14 @@
+<form action="{{ path_for('search') }}" method="get">
+<div class="input-group" style="padding-top: 3px">
+    <span class="input-group-btn">
+        <button class="btn btn-default" id="search-btn" type="submit" title="Введите название файла">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+   </span>
+   <input id="search" name="query" type="text" class="form-control" size="30px" placeholder="Поиск по файлам..." required>
+    {% if errors['query'] %}
+        <span class="reg-help">{{ errors['query'][0] }}</span>
+    {% endif %}
+</div>
+</form>
+

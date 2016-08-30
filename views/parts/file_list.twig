@@ -1,0 +1,49 @@
+<h2>{{ title }}</h2>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>
+            Название
+        </th>
+        <th>
+            Размер
+        </th>
+        <th>
+            Дата загрузки
+        </th>
+        <th>
+             Скачать
+        </th>
+    </tr>
+    {% for file in files %}
+    <tr>
+        <td>
+            <span>
+                <a href="{{ path_for('file.page', { 'file_id': file.id }) }}">
+                {{ file.original_name }}
+                </a>
+            </span>
+        </td>
+        <td>
+            <span>{{ file.size }}</span>
+        </td>
+        <td>
+            <span>{{ file.created_at | date_modify("+7 hour") | date("M j, Y - G:i") }}</span>
+        </td>
+        <td align="">
+            <span>
+                {% if not file.password or auth.user.name == file.owner %}
+                <a href="{{ path_for('download', { 'file_id': file.id }) }}">
+                    <span class="glyphicon glyphicon-save"></span>
+                </a>
+                {% else %}
+                    <span class="glyphicon glyphicon-lock"></span>
+                {% endif %}
+            </span>
+        </td>
+    </tr>
+    {% else %}
+        <div>
+            <span>Файлов не обнаружено</span>
+        </div>
+    {% endfor %}
+</table>

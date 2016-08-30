@@ -1,0 +1,24 @@
+{% extends 'base_template.twig' %}
+
+{% block content %}
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1">
+                </div>
+                <div class="col-lg-9">
+                <div class="jumbotron">
+                    {% include '/parts/file_upload.twig' %}
+                </div>
+                    {% include '/parts/file_list.twig' %}
+                </div>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_scripts %}
+    <script src="js/drag_and_drop.js"></script>
+{% endblock %}

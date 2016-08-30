@@ -1,0 +1,13 @@
+<form action="{{ path_for('file.confirm_pass', { 'file_id': file.id}) }}" method="post">
+    <div class="input-group{{ errors['pass'] ? ' has-error' : '' }}">
+        <input type="password" maxlength="30" name="file_password" id="file_password" class="form-control" title="введите пароль чтобы скачать" placeholder="для скачивания требуется ввести пароль" />
+    <span class="input-group-btn">
+    <button type="submit" class="btn btn-warning">?</button>
+    </span>
+    </div>
+    <br>
+    {% if errors['pass'] %}
+        <div class="reg-help bg-danger">{{ errors['pass'][0] }}</div>
+    {% endif %}
+    {{ csrf.field | raw }}
+</form>

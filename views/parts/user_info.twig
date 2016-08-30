@@ -1,0 +1,57 @@
+<h2>Пользователь: <u>{{ user.name }}</u></h2>
+<ul class="list-group">
+
+    <li class="list-group-item"> 
+    <div class="alert alert-success"><strong>Email:</strong>{{ user.email }}</div>
+    <div class="input-group" style="padding-top: 3px"> 
+           <div class="{{ errors['Email'] ? ' has-error has-feedback'}}">
+           <input type="email" class="form-control" size="30px" placeholder="{{ errors['Email'] ? errors['Email'][0] : 'Введите новый email...'}}"  name="new_email" form="new_email">
+           </div>
+            <span class="input-group-btn">
+            <form action="{{ path_for('user.change.email') }}" method="post" id="new_email">
+            <input type="hidden" name="user_id" value="{{ user.id }}" >
+                <button class="btn btn-default" type="submit">
+                    Изменить email
+                </button>
+                {{ csrf.field | raw }}
+            </form>
+           </span>
+    </div>
+    </li>
+
+    <li class="list-group-item"> 
+    <div class="alert alert-success"><strong>Имя:</strong>{{ user.name }}</div>
+    <div class="input-group" style="padding-top: 3px">
+        <div class="{{ errors['name'] ? ' has-error has-feedback'}}">
+        <input type="text" class="form-control" size="30px" placeholder="{{ errors['name'] ? errors['name'][0] : 'Введите новое имя...'}}" name="new_name" form="new_name">
+        </div>
+        <span class="input-group-btn">
+        <form action="{{ path_for('user.change.name') }}" method="post" id="new_name">
+        <input type="hidden" name="user_id" value="{{ user.id }}" >
+            <button class="btn btn-default" type="submit">
+                Изменить имя
+            </button>
+            {{ csrf.field | raw }}
+        </form>
+       </span>
+    </div>
+    </li>
+
+    <li class="list-group-item"> 
+    <div class="input-group" style="padding-top: 3px">
+        <div class="{{ errors['pass'] ? ' has-error has-feedback'}}">
+        <input type="password" class="form-control" size="30px" placeholder="{{ errors['pass'] ? errors['pass'][0] : 'Введите новый пароль...'}}" name="new_pass" form="new_pass">
+        </div>
+        <span class="input-group-btn">
+        <form action="{{ path_for('user.change.pass') }}" method="post" id="new_pass">
+        <input type="hidden" name="user_id" value="{{ user.id }}" >
+            <button class="btn btn-default" type="submit">
+                Изменить пароль
+            </button>
+            {{ csrf.field | raw }}
+        </form>
+       </span>
+    </div>
+    </li>
+</ul>
+

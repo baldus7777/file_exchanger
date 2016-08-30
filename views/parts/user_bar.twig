@@ -1,0 +1,8 @@
+{% if auth.user %}
+    <div class="user-bar alert alert-info" style="padding-top: 5px; padding-bottom: 5px; margin-top: -1px; margin-left: 30px">
+        <span>
+            Вы вошли как: <strong style="display:inline; margin-left: 5px">{{ auth.user.name }}</strong>
+            <img src="/images/users/{{ auth.user.image }}" class="img-responsive img-circle" width="30px" height="30px" style="display:inline; margin-left: 10px" >
+        </span> 
+    </div>
+{% endif %}

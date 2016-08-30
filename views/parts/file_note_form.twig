@@ -1,0 +1,10 @@
+<form action="{{ path_for('file.add_note', { 'file_id': file.id }) }}" method="post" role="form">
+    <div class="form-group">
+        <input type="text" name="note" placeholder="текст примечания..." size="33px" />
+    </div>
+    {% if errors['note'] %}
+            <span class="reg-help">{{ errors['note'][0] }}</span>
+    {% endif %}
+    <button type="submit" name="submit">Отправить</button>
+    {{ csrf.field | raw }}
+</form>

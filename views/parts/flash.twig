@@ -1,0 +1,19 @@
+{% if flash.getMessage('error') %}
+    {% if not (errors['Email']) and not (errors['password']) %}
+    <div class="alert alert-danger" style="text-align:center">
+        {{ flash.getMessage('error') | first }}
+    </div>
+    {% endif %}
+{% endif %}
+
+{% if flash.getMessage('success') %}
+    <div class="alert alert-success" style="text-align:center">
+        {{ flash.getMessage('success') | first }}
+    </div>
+{% endif %}
+
+{% if flash.getMessage('info') %}
+    <div class="alert alert-info" style="text-align:center">
+        {{ flash.getMessage('info') | first }}
+    </div>
+{% endif %}

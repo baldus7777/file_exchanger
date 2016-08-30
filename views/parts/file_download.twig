@@ -1,0 +1,105 @@
+<div class="col-lg-9">
+<h1> Ваша ссылка:</h1>
+<div class="input-group">
+    <input type="text" class="form-control" value="{{ baseUrl }}{{ file.id }}" size="30px" id="link">
+        <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="buffer-btn" >Скопировать</button>
+        </span>
+    </div><!-- /input-group -->
+</div>
+<div class="col-lg-8">
+{% if player == 'audio' %}
+  <audio controls>
+    <source src="/uploads/{{ file.folder }}/{{ file.name }}" type="audio/mpeg">
+  </audio>
+{% elseif player == 'video' %}
+    <video width="300px" height="300px">
+        <source src="/uploads/{{ file.folder }}/{{ file.name }}" type='video/{{ file.extension }}'>
+    </video>
+{% else %}
+        <img src="{{ preview }}" class="img-responsive img-thumbnail" width="300px" height="300px">
+{% endif %}
+<hr>
+<ul class="list-group">
+    <li class="list-group-item"> 
+        Название:
+        <span class="badge">{{ file.original_name }}</span>
+    </li>
+    <li class="list-group-item">
+        Расширение:
+        <span class="badge">{{ file.extension }}</span>
+    </li>
+    <li class="list-group-item">
+        Mime: 
+        <span class="badge">{{ file.mime }}</span>
+    </li>
+    <li class="list-group-item">
+        Размер файла:
+        <span class="badge">{{ file.size }}</span>
+    </li>
+    {% if file.dimention != 0 %}
+    <li class="list-group-item">
+        Размер изображения:
+        <span class="badge">{{ file.dimention }}</span>
+    </li>
+    {% endif %}
+    {% if file.owner != 'Гость' %}
+    <li class="list-group-item">
+        {% if user == file.owner and file.note == 'отсутствует' %}
+            {% include '/parts/file_note_form.twig' %}
+        {% elseif user == file.owner and file.note != 'отсутствует' %}
+            Примечание:
+            <span class="badge">{{ file.note }}</span>
+            <br><br>
+            {% include '/parts/file_note_form.twig' %}
+        {% else %}
+            Примечание:
+            <span class="badge">{{ file.note }}</span>
+        {% endif %}
+    {% endif %}
+    </li>
+    <li class="list-group-item">
+        Количество скачиваний:
+        <span class="badge">{{ file.uploads }}</span>
+    </li>
+    <li class="list-group-item">
+        Владелец:
+        <span class="badge">{{ file.owner }}</span>
+    </li>
+    <li class="list-group-item">
+        Пароль:
+        {% if file.password %}
+            <span class="glyphicon glyphicon-lock">
+        {% else %}
+            <span class="badge">нет</span>
+        {% endif %}
+    </li>
+    <li class="list-group-item">
+        Дата загрузки:
+        <span class="badge">{{ file.created_at | date_modify("+7 hour") | date("M j, Y - G:i") }}</span>
+    </li>
+</ul>
+{% if not file.password or auth.user.name == file.owner %}
+    <a href="{{ path_for('download', { 'file_id': file.id }) }}">
+        <button type="submit" class="btn btn-primary">скачать</button>
+    </a>
+{% else %}
+    {% include '/parts/file_confirm_pass_form.twig' %}
+{% endif %}
+{% if user == file.owner %}
+    <a href="{{ path_for('file.delete', { 'file_id': file.id, 'user': user }) }}">
+        <button type="submit" class="btn btn-warning">удалить</button>
+    </a>
+    <br><br>
+    <form action="{{ path_for('file.add_pass', { 'file_id': file.id}) }}" method="post">
+        <div class="form-group">
+            <input type="password" maxlength="30" name="file_password" id="file_password" class="form-control" title="введите пароль для файла"/>
+        </div>
+        {% if errors['pass'] %}
+            <span class="reg-help bg-warning">{{ errors['pass'][0] }}</span>
+        {% endif %}
+        <button type="submit" class="btn btn-default">Установить пароль</button>
+        {{ csrf.field | raw }}
+    </form>
+{% endif %}
+</div>

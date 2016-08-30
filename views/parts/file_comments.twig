@@ -1,0 +1,41 @@
+<div class="col-lg-7">
+<div>
+    <h2>Комментарии:</h2>
+    <form action="{{ file.comment }}" method="post" role="form">
+        <div class="form-group">
+            <textarea name="comment" id="comment" cols="50" rows="3" placeholder="выскажите свое мнение..."></textarea>
+        </div>    
+        <button type="submit" name="submit" class="btn btn-default">Оставить</button>
+
+        {{ csrf.field | raw }}
+        
+    </form>
+    {% if errors['comment'] %}
+        <span class="reg-help">{{ errors['comment'][0] }}</span>
+    {% endif %}
+</div>
+</div>
+<div class="col-lg-9">
+{% if authors|length != 0  %}
+    <h2>Комментарии:</h2>
+    <ul class="list-group">
+        {% for i in 0..comments|length-1 %}
+            <li class="list-group-item"> 
+                <span class=""><strong>{{ authors[i] }}</strong></span>
+                оставил комментарий:
+                <span class=""><small>({{ date[i]|date("m.d.Y") }})</small></span>
+                <br>
+                {{comments[i]}}  
+                
+             </li>   
+    <br>
+        {% endfor %}
+    </ul>
+        {% else %}
+        <br>
+        <div> 
+            <span>Комментариев не обнаружено...</span>
+        </div>
+        <br>
+        {% endif %}
+</div>

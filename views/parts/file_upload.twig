@@ -1,0 +1,23 @@
+<form action="{{ path_for('home') }}" method="post" role="form" enctype="multipart/form-data">
+    <div class="form-group">
+        <h1 for="file">Загрузите файл сейчас!</h1>
+        <hr>
+        {% include '/parts/drag_and_drop.twig' %}
+        <hr>
+        <label for="file">Выберите нужный файл</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="2147483648" /> 
+        <input type="file" name="file" id="file">
+        <p class="help-block">загружайте файлы до 2 Гб</p>
+        <input type="submit" name="submit" class="btn btn-default" />
+        <div>
+            {% if errors['Filename'] %}
+                <span class="reg-help">{{ errors['Filename'][0] }}</span>
+            {% elseif errors['Size'] %}
+                <span class="reg-help">{{ errors['Size'][0] }}</span>
+            {% elseif filename %}
+                <span>Файл {{ filename }} успешно загружен</span>
+            {% endif %}
+        </div>
+    </div>
+    {{ csrf.field | raw }}
+</form>
